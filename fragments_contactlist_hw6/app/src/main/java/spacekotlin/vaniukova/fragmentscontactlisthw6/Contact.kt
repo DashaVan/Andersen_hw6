@@ -4,5 +4,6 @@ data class Contact(
     val id: Long,
     var name: String,
     var surname: String,
-    var phoneNumber: String
+    var phoneNumber: String,
+    val avatarLink: String
 )

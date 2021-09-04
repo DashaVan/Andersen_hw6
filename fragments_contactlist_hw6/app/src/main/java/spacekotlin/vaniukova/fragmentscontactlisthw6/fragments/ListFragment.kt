@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import spacekotlin.vaniukova.fragmentscontactlisthw6.ContactAdapter
 import spacekotlin.vaniukova.fragmentscontactlisthw6.ContactsList
 import spacekotlin.vaniukova.fragmentscontactlisthw6.Navigator
 import spacekotlin.vaniukova.fragmentscontactlisthw6.R

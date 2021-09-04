@@ -2,8 +2,11 @@ package spacekotlin.vaniukova.fragmentscontactlisthw6
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class ContactAdapter(
     private val contacts: List<Contact>,
@@ -27,6 +30,7 @@ class ContactAdapter(
         private val tvName: TextView = view.findViewById(R.id.tvName)
         private val tvSurname: TextView = view.findViewById(R.id.tvSurname)
         private val tvPhone: TextView = view.findViewById(R.id.tvPhone)
+        private val imageViewAvatar: ImageView = view.findViewById(R.id.imageViewAvatar)
         private var currentId: Long? = null
 
         init {
@@ -40,6 +44,11 @@ class ContactAdapter(
             tvName.text = contact.name
             tvSurname.text = contact.surname
             tvPhone.text = contact.phoneNumber
+
+            Glide.with(itemView)
+                .load(contact.avatarLink)
+                .error(R.drawable.cat)
+                .into(imageViewAvatar)
         }
     }
 }

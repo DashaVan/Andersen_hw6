@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import spacekotlin.vaniukova.fragmentscontactlisthw6.ContactsList
 import spacekotlin.vaniukova.fragmentscontactlisthw6.Navigator
 import spacekotlin.vaniukova.fragmentscontactlisthw6.R
@@ -51,6 +52,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             textSurname.setText(ContactsList.list[id].surname)
             textPhone.setText(ContactsList.list[id].phoneNumber)
         }
+
+        Glide.with(this)
+            .load(ContactsList.list[id].avatarLink)
+            .placeholder(R.drawable.cat)
+            .into(binding.imageView)
     }
 
     private fun saveInfo(id: Long) {
