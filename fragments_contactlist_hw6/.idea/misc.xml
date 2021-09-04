@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/andersen_homeworks/Andersen_hw6/fragments_contactlist_hw6/app/src/main/res/layout/dialog_delete_contact.xml" value="0.25226449275362317" />
         <entry key="..\:/andersen_homeworks/Andersen_hw6/fragments_contactlist_hw6/app/src/main/res/layout/fragment_detail.xml" value="0.26721014492753625" />
         <entry key="..\:/andersen_homeworks/Andersen_hw6/fragments_contactlist_hw6/app/src/main/res/layout/fragment_list.xml" value="0.26721014492753625" />
         <entry key="..\:/andersen_homeworks/Andersen_hw6/fragments_contactlist_hw6/app/src/main/res/layout/item_contact.xml" value="0.26721014492753625" />

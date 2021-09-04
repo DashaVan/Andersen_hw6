@@ -4,4 +4,6 @@
     <string name="surname">Surname:</string>
     <string name="name">Name:</string>
     <string name="save">Save</string>
+    <string name="search">search</string>
+    <string name="delete_this_contact">Delete this contact?</string>
 </resources>

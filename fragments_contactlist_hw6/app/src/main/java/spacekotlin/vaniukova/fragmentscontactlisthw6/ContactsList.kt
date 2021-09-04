@@ -1,7 +1,7 @@
 package spacekotlin.vaniukova.fragmentscontactlisthw6
 
 object ContactsList {
-    val list = listOf(
+    val list = mutableListOf(
         Contact(
             id = 0,
             name = "Kate",
@@ -33,21 +33,21 @@ object ContactsList {
         Contact(
             id = 4,
             name = "Kate",
-            surname = "Petrova",
+            surname = "Ivanova",
             phoneNumber = "89213333355",
             avatarLink = "https://picsum.photos/id/241/200/300"
         ),
         Contact(
             id = 5,
             name = "Sveta",
-            surname = "Ivanova",
+            surname = "Konovalova",
             phoneNumber = "85552133333",
             avatarLink = "https://picsum.photos/id/242/200/300"
         ),
         Contact(
             id = 6,
             name = "Maxim",
-            surname = "Petrov",
+            surname = "Vodkin",
             phoneNumber = "89213300333",
             avatarLink = "https://picsum.photos/id/243/200/300"
         ),
@@ -68,14 +68,14 @@ object ContactsList {
         Contact(
             id = 9,
             name = "Sveta",
-            surname = "Ivanova",
+            surname = "Babkina",
             phoneNumber = "85552133333",
             avatarLink = "https://picsum.photos/id/248/200/300"
         ),
         Contact(
             id = 10,
             name = "Maxim",
-            surname = "Petrov",
+            surname = "Afonov",
             phoneNumber = "89213300333",
             avatarLink = "https://picsum.photos/id/249/200/300"
         ),
@@ -103,7 +103,7 @@ object ContactsList {
         Contact(
             id = 14,
             name = "Maxim",
-            surname = "Petrov",
+            surname = "Konovalov",
             phoneNumber = "89213300333",
             avatarLink = "https://picsum.photos/id/253/200/300"
         ),
@@ -138,7 +138,7 @@ object ContactsList {
         Contact(
             id = 19,
             name = "Dasha",
-            surname = "Petrova",
+            surname = "Koshkina",
             phoneNumber = "89213339337",
             avatarLink = "https://picsum.photos/id/258/200/300"
         ),
@@ -166,7 +166,7 @@ object ContactsList {
         Contact(
             id = 23,
             name = "Dasha",
-            surname = "Petrova",
+            surname = "Arkina",
             phoneNumber = "89213339337",
             avatarLink = "https://picsum.photos/id/600/200/300"
         ),
@@ -208,7 +208,7 @@ object ContactsList {
         Contact(
             id = 29,
             name = "Sveta",
-            surname = "Ivanova",
+            surname = "Galkina",
             phoneNumber = "85552133333",
             avatarLink = "https://picsum.photos/id/268/200/300"
         ),
@@ -250,7 +250,7 @@ object ContactsList {
         Contact(
             id = 35,
             name = "Sveta",
-            surname = "Ivanova",
+            surname = "Obramova",
             phoneNumber = "85552133333",
             avatarLink = "https://picsum.photos/id/272/200/300"
         ),
@@ -285,7 +285,7 @@ object ContactsList {
         Contact(
             id = 40,
             name = "Maxim",
-            surname = "Petrov",
+            surname = "Vupkin",
             phoneNumber = "89213300333",
             avatarLink = "https://picsum.photos/id/277/200/300"
         ),

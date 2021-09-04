@@ -9,11 +9,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class ContactAdapter(
-    private val contacts: List<Contact>,
-    private val onItemClicked: (id: Long) -> Unit
+    private var contacts: List<Contact>,
+    private val onItemClicked: (id: Long) -> Unit,
+    private val onItemLongClicked: (id: Long) -> Unit
 ) : RecyclerView.Adapter<ContactAdapter.Holder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        return Holder(parent.inflate(R.layout.item_contact), onItemClicked)
+        return Holder(parent.inflate(R.layout.item_contact), onItemClicked, onItemLongClicked)
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
@@ -23,9 +25,14 @@ class ContactAdapter(
 
     override fun getItemCount(): Int = contacts.size
 
+    fun updateContact(newContacts: List<Contact>) {
+        contacts = newContacts
+    }
+
     class Holder(
         view: View,
-        onItemClicked: (id: Long) -> Unit
+        onItemClicked: (id: Long) -> Unit,
+        onItemLongClicked: (id: Long) -> Unit
     ) : RecyclerView.ViewHolder(view) {
         private val tvName: TextView = view.findViewById(R.id.tvName)
         private val tvSurname: TextView = view.findViewById(R.id.tvSurname)
@@ -36,6 +43,13 @@ class ContactAdapter(
         init {
             view.setOnClickListener {
                 currentId?.let { onItemClicked(it) }
+            }
+        }
+
+        init {
+            view.setOnLongClickListener {
+                currentId?.let { onItemLongClicked(it) }
+                return@setOnLongClickListener true
             }
         }
 
