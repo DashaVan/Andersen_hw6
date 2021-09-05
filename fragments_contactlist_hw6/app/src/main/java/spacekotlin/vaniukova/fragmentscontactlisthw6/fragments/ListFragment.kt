@@ -15,6 +15,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     private val binding get() = _binding!!
 
     private var deleteDialog: AlertDialog? = null
+
     private var contacts = ContactsList.list
     private var contactAdapter: ContactAdapter? = null
 
@@ -38,41 +39,57 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initList(contacts)
+        if (savedInstanceState != null) {
+            contacts = savedInstanceState.getParcelableArrayList<Contact>(KEY_COUNTER)
+                ?: error("Unexpected state")
+            initList()
+        } else {
+            initList()
+        }
 
         binding.btnSearch.setOnClickListener {
             searchContact()
         }
-
         contactAdapter?.updateContact(contacts)
-        contactAdapter?.notifyDataSetChanged()
+    }
+
+    companion object {
+        private const val KEY_COUNTER = "counter"
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(KEY_COUNTER, contacts)
     }
 
     private fun searchContact() {
         val searchName = binding.editTextSearchName.text.toString()
         val searchSurname = binding.editTextSearchSurname.text.toString()
 
-        val listSearchResult =
-            if (binding.editTextSearchName.text.isNotEmpty() && binding.editTextSearchSurname.text.isNotEmpty()) {
-                contacts.filter { it.name.contains(searchName) }
-                    .filter { it.surname.contains(searchSurname) }
-                    .toMutableList()
-            } else {
-                contacts.filter {
-                    if (binding.editTextSearchName.text.isNotEmpty()) {
-                        it.name.contains(searchName)
-                    } else {
-                        it.surname.contains(searchSurname)
-                    }
-                }.toMutableList()
-            }
+        val oldContacts = contacts
 
-        initList(listSearchResult)
+        if (binding.editTextSearchName.text.isNotEmpty() && binding.editTextSearchSurname.text.isNotEmpty()) {
+           contacts = contacts.filter { it.name.contains(searchName) }
+               .filter { it.surname.contains(searchSurname) }
+               .toMutableList() as ArrayList<Contact>
+
+        } else{
+            contacts = contacts.filter {
+                if (binding.editTextSearchName.text.isNotEmpty()) {
+                    it.name.contains(searchName)
+                } else {
+                    it.surname.contains(searchSurname)
+                }
+            }.toMutableList() as ArrayList<Contact>
+        }
+        initList()
+        contactAdapter?.updateContact(contacts)
+        contacts = oldContacts
     }
 
-    private fun initList(list: MutableList<Contact>) {
-        contactAdapter = ContactAdapter(list, { id -> openDetailFragment(id) },
-            { id -> showDeleteDialog(id, list) })
+    private fun initList() {
+        contactAdapter = ContactAdapter({ id -> openDetailFragment(id) },
+            { id -> showDeleteDialog(id) })
         with(binding.contactList) {
             adapter = contactAdapter
             layoutManager = LinearLayoutManager(context)
@@ -80,16 +97,17 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         }
     }
 
-    private fun deleteContact(id: Long, list: MutableList<Contact>) {
-        list.removeAt(id.toInt())
-        contactAdapter?.updateContact(list)
-        contactAdapter?.notifyItemRemoved(id.toInt())
+    private fun deleteContact(idItem: Long) {
+        contacts = contacts.filter{
+            it.id != idItem
+        } as ArrayList<Contact>
+        contactAdapter?.updateContact(contacts)
     }
 
-    private fun showDeleteDialog(id: Long, list: MutableList<Contact>) {
+    private fun showDeleteDialog(id: Long) {
         deleteDialog = AlertDialog.Builder(requireContext())
             .setMessage(R.string.delete_this_contact)
-            .setPositiveButton("OK") { _, _ -> deleteContact(id, list) }
+            .setPositiveButton("OK") { _, _ -> deleteContact(id) }
             .setNegativeButton("Cancel", null)
             .show()
     }

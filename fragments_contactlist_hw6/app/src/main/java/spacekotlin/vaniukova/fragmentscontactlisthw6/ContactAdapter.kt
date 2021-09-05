@@ -4,29 +4,41 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class ContactAdapter(
-    private var contacts: List<Contact>,
     private val onItemClicked: (id: Long) -> Unit,
     private val onItemLongClicked: (id: Long) -> Unit
 ) : RecyclerView.Adapter<ContactAdapter.Holder>() {
+
+    private val differ = AsyncListDiffer<Contact>(this, ContactDiffUtilCallBack())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         return Holder(parent.inflate(R.layout.item_contact), onItemClicked, onItemLongClicked)
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val contact = contacts[position]
+        val contact = differ.currentList[position]
         holder.bind(contact)
     }
 
-    override fun getItemCount(): Int = contacts.size
+    override fun getItemCount(): Int = differ.currentList.size
 
     fun updateContact(newContacts: List<Contact>) {
-        contacts = newContacts
+        differ.submitList(newContacts)
+    }
+
+    class ContactDiffUtilCallBack : DiffUtil.ItemCallback<Contact>() {
+        override fun areItemsTheSame(oldItem: Contact, newItem: Contact): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Contact, newItem: Contact): Boolean {
+            return oldItem == newItem
+        }
     }
 
     class Holder(

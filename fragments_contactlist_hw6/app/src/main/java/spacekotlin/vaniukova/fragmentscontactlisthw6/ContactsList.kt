@@ -1,7 +1,7 @@
 package spacekotlin.vaniukova.fragmentscontactlisthw6
 
 object ContactsList {
-    val list = mutableListOf(
+    val list = arrayListOf(
         Contact(
             id = 0,
             name = "Kate",
