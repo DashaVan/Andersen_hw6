@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import jp.wasabeef.recyclerview.animators.FlipInTopXAnimator
 import spacekotlin.vaniukova.fragmentscontactlisthw6.*
 import spacekotlin.vaniukova.fragmentscontactlisthw6.databinding.FragmentListBinding
 
@@ -94,6 +96,17 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             adapter = contactAdapter
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
+
+            if (itemDecorationCount == 0) {
+                addItemDecoration(ItemDec(requireContext()))
+                itemAnimator = FlipInTopXAnimator()
+                addItemDecoration(
+                    DividerItemDecoration(
+                        requireContext(),
+                        DividerItemDecoration.VERTICAL
+                    )
+                )
+            }
         }
     }
 
